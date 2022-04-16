@@ -19,8 +19,8 @@ btnReset.addEventListener("click", (e) => {
     const overlay = document.getElementById("overlay");
     overlay.style.display = "none";
     btnReset.textContent = "Reset game";
-    phraseArray = getRandomPhraseAsArray(phrases);            // Return a random phrase
-    addPhraseToDisplay(phraseArray);                          // Display characters
+    phraseArray = getRandomPhraseAsArray(phrases);
+    addPhraseToDisplay(phraseArray);
 });
 
 // Choose a random phrase and split it
