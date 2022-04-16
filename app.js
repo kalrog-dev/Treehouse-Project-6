@@ -2,7 +2,9 @@
 const qwerty = document.getElementById("qwerty");
 const phrase = document.getElementById("phrase");
 const btnReset = document.querySelector(".btn__reset");
+const images = document.querySelectorAll("#scoreboard img");
 let missed = 0;
+let phraseArray;
 const phrases = [
     "Be the change that you wish to see in the world",
     "A friend is someone who knows all about you and still loves you",
@@ -11,23 +13,22 @@ const phrases = [
     "The man who does not read has no advantage over the man who cannot read",
     "It is never too late to be what you might have been"
 ];
-let phraseArray;
 
 // Hide overlay
 btnReset.addEventListener("click", (e) => {
     const overlay = document.getElementById("overlay");
     overlay.style.display = "none";
+    btnReset.textContent = "Reset game";
+    phraseArray = getRandomPhraseAsArray(phrases);            // Return a random phrase
+    addPhraseToDisplay(phraseArray);                          // Display characters
 });
 
 // Choose a random phrase and split it
 function getRandomPhraseAsArray(arr) {
-    const random = Math.floor(Math.random() * arr.length);    // for 6 phrases => number 0-5
-    const chars = arr[random].split("");                      // get an array of characters
+    const random = Math.floor(Math.random() * arr.length);    // For 6 phrases => number 0-5
+    const chars = arr[random].split("");                      // Get an array of characters
     return(chars);
 }
-
-// Return a random phrase
-phraseArray = getRandomPhraseAsArray(phrases);
 
 // Add characters inside of list items
 function addPhraseToDisplay(arr) {
@@ -43,12 +44,9 @@ function addPhraseToDisplay(arr) {
     }
 }
 
-// Display characters
-addPhraseToDisplay(phraseArray);
-
 // Compare characters to player's choice
 function checkLetter(button) {
-    const li = document.querySelectorAll("li.letter")
+    const li = document.querySelectorAll("li.letter");
     let match = "null";
     for (let i = 0; i < li.length; i++) {
         if (button === li[i].textContent) {
@@ -69,7 +67,6 @@ qwerty.addEventListener("click", (e) => {
         letterFound = checkLetter(e.target.textContent.toUpperCase());
         if (letterFound === "null") {
             missed++;
-            const images = document.querySelectorAll("#scoreboard img");
             console.log(images);
             if (missed <= 5) {
                 images[5 - missed].src = "images/lostHeart.png";
@@ -86,11 +83,31 @@ function checkWin() {
     let show = document.querySelectorAll(".show");
     if (letter.length === show.length) {
         overlay.classList.add("win");
+        overlay.classList.remove("lose");
         overlay.firstElementChild.textContent = "You won!";
         overlay.style.display = "flex";
+        reset();
     } else if (missed > 4) {
         overlay.classList.add("lose");
+        overlay.classList.remove("win");
         overlay.firstElementChild.textContent = "You lost!";
         overlay.style.display = "flex";
+        reset();
     }
+}
+
+// Reset the game
+function reset() {
+    for (let i = 0; i < images.length; i++) {
+        images[i].src = "images/liveHeart.png";
+    }
+    const li = document.querySelectorAll("#phrase li");
+    for (let i = 0; i < li.length; i++) {
+        li[i].remove();
+    }
+    const chosen = document.querySelectorAll("#qwerty .chosen");
+    for (let i = 0; i < chosen.length; i++) {
+        chosen[i].classList.remove("chosen");
+    }
+    missed = 0;
 }
