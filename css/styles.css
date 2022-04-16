@@ -1,5 +1,6 @@
 /* Main styles */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&Roboto:300');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
 
 /* Variables */
 
@@ -78,15 +79,16 @@ button {
 /* Phrase */
 
 .letter {
-  font-size: var(--font-size-medium);
+  font-size: /*var(--font-size-medium)*/ 25px;
   height: 65px;
   width: 65px;
-  padding: 20px 1px 0 1px;
+  padding: 18px 1px 0 1px;
   margin-right: 2px;
   color: transparent;
   background: var(--color-neutral-light);
   border-radius: 5px;
   transition: color 1s, background-color 1s;
+  font-family: 'Rubik', sans-serif;
 }
 
 .space {
@@ -94,8 +96,8 @@ button {
 }
 
 .show {
-  color: #000;
-  background-color: #76CE82;
+  color: rgb(38, 38, 38);
+  background-color: #76CE82;  /* #76CE82 */
 }
 
 /* Keyboard */
