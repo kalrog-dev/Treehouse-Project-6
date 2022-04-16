@@ -64,6 +64,7 @@ qwerty.addEventListener("click", (e) => {
         return;
     } else {
         e.target.classList.add("chosen");
+        e.target.setAttribute("disabled", "true");
         letterFound = checkLetter(e.target.textContent.toUpperCase());
         if (letterFound === "null") {
             missed++;
@@ -108,6 +109,7 @@ function reset() {
     const chosen = document.querySelectorAll("#qwerty .chosen");
     for (let i = 0; i < chosen.length; i++) {
         chosen[i].classList.remove("chosen");
+        chosen[i].removeAttribute("disabled");
     }
     missed = 0;
 }
